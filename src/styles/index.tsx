@@ -198,6 +198,7 @@ const font = css`
   :root,
   * {
     font-family: "Noto Sans KR", sans-serif;
+    color: #404040;
   }
 `;
 
