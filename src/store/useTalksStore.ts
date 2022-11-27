@@ -1,10 +1,10 @@
-import { TalkInfo } from "./../types/talk";
+import { TalkContent, TalkInfo } from "./../types/talk";
 import create from "zustand";
 import api from "../api";
 
 interface TalksState {
   talkList: TalkInfo[];
-  selectedTalk?: { talkInfo: TalkInfo; contents: [] };
+  selectedTalk?: { talkInfo: TalkInfo; contents: TalkContent[] };
   getTalkList: () => void;
   setSelectedTalk: (talkInfo: TalkInfo) => void;
 }
@@ -19,7 +19,7 @@ const useTalksStore = create<TalksState>((set) => ({
     const talkContentsList = await api.talk.getTalkContentList(
       talkInfo.user.id
     );
-    set(() => ({ selectedTalk: { talkInfo, contents: [] } }));
+    set(() => ({ selectedTalk: { talkInfo, contents: talkContentsList } }));
   },
 }));
 
