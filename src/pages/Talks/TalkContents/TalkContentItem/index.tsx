@@ -34,7 +34,7 @@ const TalkContentItem = ({ data, isMine, ...rest }: Props) => {
 
 export default TalkContentItem;
 const container = css`
-  padding: 12px;
+  padding: 12px 24px;
   display: flex;
   gap: 12px;
   margin: 24px 0;

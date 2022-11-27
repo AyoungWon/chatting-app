@@ -98,9 +98,10 @@ export const talkContentsByUser: { [userId in string]: TalkContent[] } = {
         profileImage:
           "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
       },
-      content: "안녕하세요. 테스트입니다.",
-      time: new Date(year, month, day),
+      content: "안녕하세요. 금일 미팅에서 진행할 줌 링크 보내드립니다..",
+      time: new Date(year, month, day - 1),
     },
+
     {
       user: {
         id: "asdasd-asdasd-adsadas-gdfg99",
@@ -118,8 +119,8 @@ export const talkContentsByUser: { [userId in string]: TalkContent[] } = {
         profileImage:
           "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
       },
-      content: "안녕하세요. 금일 미팅에서 진행할 줌 링크 보내드립니다..",
-      time: new Date(year, month, day - 1),
+      content: "안녕하세요. 테스트입니다.",
+      time: new Date(year, month, day),
     },
   ],
 };

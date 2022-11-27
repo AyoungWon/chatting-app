@@ -9,7 +9,7 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
 
 const BUTTON_HEIGHT: { [key in ButtonSize]: number } = {
   m: 42,
-  s: 24,
+  s: 32,
 };
 
 const RoundButton = ({ size = "m", ...rest }: Props) => {

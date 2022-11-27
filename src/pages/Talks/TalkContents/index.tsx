@@ -4,6 +4,7 @@ import { HTMLAttributes } from "react";
 import useTalksStore from "../../../store/useTalksStore";
 import Header from "./Header";
 import TalkContentItem from "./TalkContentItem";
+import TalkInput from "./TalkInput";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 const myId = "asdasd-asdasd-adsadas-gdfg99";
@@ -14,16 +15,19 @@ const TalkContents = ({ ...rest }: Props) => {
     <div css={[container]} {...rest}>
       <Header userInfo={talkContent?.talkInfo.user} />
       {talkContent ? (
-        <div css={contentsWrap}>
-          {talkContent.contents.map((talkContentItem, idx) => {
-            return (
-              <TalkContentItem
-                key={`talk_with_${talkContentItem.user.id}_${talkContentItem.time}`}
-                data={talkContentItem}
-                isMine={myId === talkContentItem.user.id}
-              />
-            );
-          })}
+        <div css={wrapper}>
+          <ul css={contentsWrap}>
+            {talkContent.contents.map((talkContentItem, idx) => {
+              return (
+                <TalkContentItem
+                  key={`talk_with_${talkContentItem.user.id}_${talkContentItem.time}`}
+                  data={talkContentItem}
+                  isMine={myId === talkContentItem.user.id}
+                />
+              );
+            })}
+          </ul>
+          <TalkInput />
         </div>
       ) : (
         <>{/*todo  없을 때 화면 만들기 */}</>
@@ -44,12 +48,16 @@ const container = css`
   flex-direction: column;
 `;
 
+const wrapper = css`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
 const contentsWrap = css`
   flex: 1;
   width: 100%;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
 `;
 
 const dateMrk = css`
