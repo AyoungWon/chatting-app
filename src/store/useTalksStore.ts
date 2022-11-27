@@ -2,6 +2,7 @@ import { UserInfo } from "./../types/user";
 import { TalkContent, TalkInfo } from "./../types/talk";
 import create from "zustand";
 import api from "../api";
+import produce from "immer";
 
 interface TalksState {
   talkList: TalkInfo[];
@@ -21,6 +22,21 @@ const useTalksStore = create<TalksState>((set, get) => ({
     const talkContentsList = await api.talk.getTalkContentList(
       talkInfo.user.id
     );
+    const talkList = get().talkList;
+    const selectedTalkItemIsUnreadIndex = talkList.findIndex(
+      (talk) => talk.isUnread && talk.user.id === talkInfo.user.id
+    );
+
+    if (selectedTalkItemIsUnreadIndex >= 0) {
+      const nextState = produce(talkList, (draftState) => {
+        draftState[selectedTalkItemIsUnreadIndex].isUnread = false;
+      });
+
+      return set(() => ({
+        selectedTalk: { talkInfo, contents: talkContentsList },
+        talkList: nextState,
+      }));
+    }
     set(() => ({ selectedTalk: { talkInfo, contents: talkContentsList } }));
   },
   sendMessage: async (me, message) => {
@@ -40,5 +56,4 @@ const useTalksStore = create<TalksState>((set, get) => ({
     }
   },
 }));
-
 export default useTalksStore;
