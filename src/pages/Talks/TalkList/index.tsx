@@ -71,6 +71,7 @@ const header = css`
 const talkListWrap = css`
   flex: 1;
   width: 100%;
+  border-right: 1px solid #a9a9a9;
 `;
 
 const talkList = css`
