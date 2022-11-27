@@ -1,3 +1,4 @@
+import { myProfile } from "./../dummy";
 import { UserInfo } from "./../types/user";
 import create from "zustand";
 import api from "../api";
@@ -10,6 +11,7 @@ interface UserState {
 }
 
 const useUserStore = create<UserState>((set, get) => ({
+  userInfo: myProfile,
   friendList: [],
   setUserInfo: async () => {
     const userInfo = await api.user.getUserProfile();
