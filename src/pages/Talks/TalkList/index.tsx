@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { HTMLAttributes, useEffect } from "react";
+import { HTMLAttributes, useEffect, useMemo } from "react";
 import { RoundButton } from "../../../components";
 import useTalksStore from "../../../store/useTalksStore";
 import SearchInput from "./SearchInput";
@@ -9,23 +9,36 @@ import TalkInfo from "./TalkInfoItem";
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 const TalkList = ({ ...rest }: Props) => {
-  const { talkList: list, getTalkList } = useTalksStore();
+  const { talkList: list, getTalkList, setSelectedTalk } = useTalksStore();
+  const unreadTalksCount = useMemo(
+    () => list.filter((item) => item.isUnread).length,
+    [list]
+  );
 
   useEffect(() => {
     if (list.length === 0) getTalkList();
   }, []);
 
+  const handleClickTalkItem = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as Element;
+    const item = target.closest("li");
+    const userId = item?.dataset.userId;
+    const targetTalkInfo = list.find((item) => item.user.id === userId);
+    if (targetTalkInfo) setSelectedTalk(targetTalkInfo);
+  };
+
   return (
     <div css={[container]} {...rest}>
       <div css={header}>
-        <p>안 읽은 대화(2)</p>
+        <p>{`안 읽은 대화(${unreadTalksCount})`}</p>
         <RoundButton>+ 새로운 메세지</RoundButton>
       </div>
       <div css={talkListWrap}>
         <SearchInput />
-        <ul css={talkList}>
-          {list.map((talkInfo) => (
+        <ul css={talkList} onClick={handleClickTalkItem}>
+          {list.map((talkInfo, idx) => (
             <TalkInfo
+              isLast={idx === list.length - 1}
               data={talkInfo}
               key={`talk_list_user_${talkInfo.user.id}`}
             />

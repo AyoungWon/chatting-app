@@ -3,10 +3,10 @@ import create from "zustand";
 import api from "../api";
 
 interface TalksState {
-  // setUserProfile: (profile?: UserProfileType) => void;
-  // user?: UserProfileType;
   talkList: TalkInfo[];
+  selectedTalk?: { talkInfo: TalkInfo; contents: [] };
   getTalkList: () => void;
+  setSelectedTalk: (talkInfo: TalkInfo) => void;
 }
 
 const useTalksStore = create<TalksState>((set) => ({
@@ -15,7 +15,12 @@ const useTalksStore = create<TalksState>((set) => ({
     const talkList = await api.talk.getTalkList();
     set(() => ({ talkList: talkList }));
   },
-  // setUserProfile: profile => set(() => ({user: profile})),
+  setSelectedTalk: async (talkInfo) => {
+    const talkContentsList = await api.talk.getTalkContentList(
+      talkInfo.user.id
+    );
+    set(() => ({ selectedTalk: { talkInfo, contents: [] } }));
+  },
 }));
 
 export default useTalksStore;

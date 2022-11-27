@@ -1,17 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { HTMLAttributes, useMemo } from "react";
+import useTalksStore from "../../../../store/useTalksStore";
 import { TalkInfo } from "../../../../types/talk";
 
 interface Props extends HTMLAttributes<HTMLLIElement> {
   data: TalkInfo;
+  isLast: boolean;
 }
 
-const TalkInfoItem = ({ data, ...rest }: Props) => {
+const TalkInfoItem = ({ data, isLast, ...rest }: Props) => {
+  const { selectedTalk } = useTalksStore();
   const { user, lastMessage } = useMemo(() => data, [data]);
+  const isRead = useMemo(() => !data.isUnread, [data]);
+  const isSelected = useMemo(
+    () => selectedTalk?.talkInfo.user.id === data.user.id,
+    [selectedTalk, data]
+  );
+
   return (
-    <li css={container}>
-      <div css={bar} />
+    <li
+      data-user-id={data.user.id}
+      css={[container, isLast && lastItem, isRead && readItem]}
+    >
+      <div css={[bar, isSelected && selectedItemBar]} />
       <div css={imageWrap}>
         <img
           css={img}
@@ -38,12 +50,26 @@ const container = css`
   width: 100%;
   height: 120px;
   border: 1px solid #a9a9a9;
+  border-bottom: none;
   padding-right: 16px;
+`;
+
+const lastItem = css`
+  border: 1px solid #a9a9a9;
+`;
+
+const readItem = css`
+  opacity: 0.7;
+  background-color: #e9e9e9;
 `;
 
 const bar = css`
   width: 6px;
   height: 100%;
+  background-color: transparent;
+`;
+
+const selectedItemBar = css`
   background-color: #5a7aff;
 `;
 const imageWrap = css`

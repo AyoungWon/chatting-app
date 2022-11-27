@@ -1,4 +1,4 @@
-import { talkList } from "../dummy";
+import { talkList, talkContentsByUser } from "../dummy";
 import base from "./base";
 import { GetTalkListRes } from "./type";
 
@@ -8,4 +8,10 @@ const getTalkList = () => {
   return data;
 };
 
-export default { getTalkList };
+const getTalkContentList = (targetUserId: string) => {
+  //const data = base.get<TalkContent[]>(`talk/contents/${targetUserId}`);
+  const data = talkContentsByUser[targetUserId];
+  return data ?? [];
+};
+
+export default { getTalkList, getTalkContentList };
