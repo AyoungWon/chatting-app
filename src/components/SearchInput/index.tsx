@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { HTMLAttributes } from "react";
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -13,7 +12,7 @@ const SearchInput = ({ ...rest }: Props) => {
     <div css={[container]}>
       <div css={wrapper}>
         <div>#</div>
-        <input css={input} placeholder="대화 검색하기" {...rest} />
+        <input css={input} {...rest} />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
 import talk from "./talk";
+import user from "./user";
 
-export default { talk };
+export default { talk, user };

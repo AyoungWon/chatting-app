@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { HTMLAttributes, useEffect, useMemo, useState } from "react";
-import { RoundButton } from "../../../components";
+import { RoundButton, SearchInput } from "../../../components";
 import useTalksStore from "../../../store/useTalksStore";
 import { TalkInfo } from "../../../types/talk";
-import SearchInput from "./SearchInput";
 import TalkInfoItem from "./TalkInfoItem";
 
 const TODAY = new Date();
@@ -56,6 +55,7 @@ const TalkList = ({ ...rest }: Props) => {
       </div>
       <div css={talkListWrap}>
         <SearchInput
+          placeholder="대화 친구 검색하기"
           value={searchValue}
           onChange={handleChangeSearchInputValue}
         />

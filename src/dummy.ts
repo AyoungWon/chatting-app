@@ -67,7 +67,7 @@ export const talkList: TalkInfo[] = [
   },
   {
     user: {
-      position: "manager",
+      position: "Manager",
       isFriend: true,
       id: "asdasd-asdasd-adsadas-gdfgd5",
       name: "Ann",
@@ -217,3 +217,69 @@ export const talkContentsByUser: { [userId in string]: TalkContent[] } = {
     },
   ],
 };
+
+export const friendList = [
+  {
+    isFriend: true,
+    id: "asdasd-asdasd-adsadas-gdfgd6",
+    name: "한국인",
+    profileImage:
+      "https://www.gravatar.com/avatar/4e8763cd343611171849e8f27d0132a3?s=250",
+  },
+  {
+    position: "웹앱 UX 디자이너",
+    isFriend: true,
+    id: "asdasd-asdasd-adsadas-gdfgd1",
+    name: "김펀치",
+    profileImage:
+      "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+  },
+  {
+    position: "PM",
+    isFriend: true,
+    id: "asdasd-asdasd-adsadas-gdfgd2",
+    name: "Ronald",
+    profileImage:
+      "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=250",
+  },
+  {
+    position: "BE developer",
+    isFriend: true,
+    id: "asdasd-asdasd-adsadas-gdfgd4",
+    name: "윤아드리엘",
+    profileImage:
+      "https://www.gravatar.com/avatar/be8819126bd50fa16210bc5dd249beb2?s=250",
+  },
+  {
+    position: "Manager",
+    isFriend: true,
+    id: "asdasd-asdasd-adsadas-gdfgd5",
+    name: "Ann",
+    profileImage:
+      "https://2.gravatar.com/avatar/67c5ef957e55a650cbe65dda6f31a380?s=250",
+  },
+
+  {
+    position: "Boss",
+    isFriend: true,
+    id: "asdasd-asdasd-adsadas-gdfgd7",
+    name: "대표님",
+    profileImage:
+      "https://2.gravatar.com/avatar/faf37de1edc1992d7fad860b94f57617?s=250",
+  },
+  {
+    position: "인사",
+    isFriend: true,
+    id: "asdasd-asdasd-adsadas-gdfgd8",
+    name: "김사원",
+    profileImage:
+      "https://2.gravatar.com/avatar/8be94139fba3931699d23861915de7ad?s=250",
+  },
+  {
+    isFriend: true,
+    id: "asdasd-asdasd-adsadas-gdfgd9",
+    name: "홍길이",
+    profileImage:
+      "https://2.gravatar.com/avatar/a34b989795e9cec49238648283efb2ab?s=250",
+  },
+];

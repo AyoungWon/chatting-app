@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { HTMLAttributes } from "react";
+import NewTalkModal from "./NewTalkModal";
 import TalkContents from "./TalkContents";
 import TalkList from "./TalkList";
 
@@ -11,6 +12,7 @@ const Talks = ({ ...rest }: Props) => {
     <div css={[container]} {...rest}>
       <TalkList />
       <TalkContents />
+      <NewTalkModal />
     </div>
   );
 };

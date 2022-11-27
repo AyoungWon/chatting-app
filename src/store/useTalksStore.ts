@@ -7,13 +7,17 @@ import produce from "immer";
 interface TalksState {
   talkList: TalkInfo[];
   selectedTalk?: { talkInfo: TalkInfo; contents: TalkContent[] };
+  isNewTalkModalOpen: boolean;
   getTalkList: () => void;
   setSelectedTalk: (talkInfo: TalkInfo) => void;
   sendMessage: (me: UserInfo, message: string) => void;
+  toggleNewTalkModal: () => void;
+  selectedNewTalk: (friendInfo: UserInfo) => void;
 }
 
 const useTalksStore = create<TalksState>((set, get) => ({
   talkList: [],
+  isNewTalkModalOpen: true,
   getTalkList: async () => {
     const talkList = await api.talk.getTalkList();
     set(() => ({ talkList: talkList }));
@@ -54,6 +58,29 @@ const useTalksStore = create<TalksState>((set, get) => ({
         },
       }));
     }
+  },
+  toggleNewTalkModal: () => {
+    const isNewTalkModalOpen = get().isNewTalkModalOpen;
+    set(() => ({ isNewTalkModalOpen: !isNewTalkModalOpen }));
+  },
+  selectedNewTalk: (friendInfo) => {
+    const { talkList, setSelectedTalk, toggleNewTalkModal } = get();
+    const existTalk = talkList.find((talk) => talk.user.id === friendInfo.id);
+    if (existTalk) {
+      setSelectedTalk(existTalk);
+    } else {
+      const newTalkInfo = {
+        user: friendInfo,
+        isUnread: false,
+        lastMessage: "",
+        recentDate: new Date(),
+      };
+      set(() => ({
+        talkList: [...talkList, newTalkInfo],
+        selectedTalk: { talkInfo: newTalkInfo, contents: [] },
+      }));
+    }
+    toggleNewTalkModal();
   },
 }));
 export default useTalksStore;
