@@ -6,6 +6,8 @@ import useTalksStore from "../../../store/useTalksStore";
 import SearchInput from "./SearchInput";
 import TalkInfo from "./TalkInfoItem";
 
+const today = new Date();
+
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 const TalkList = ({ ...rest }: Props) => {
@@ -38,6 +40,7 @@ const TalkList = ({ ...rest }: Props) => {
         <ul css={talkList} onClick={handleClickTalkItem}>
           {list.map((talkInfo, idx) => (
             <TalkInfo
+              today={today}
               isLast={idx === list.length - 1}
               data={talkInfo}
               key={`talk_list_user_${talkInfo.user.id}`}

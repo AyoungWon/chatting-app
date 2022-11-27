@@ -13,8 +13,8 @@ const Header = ({ userInfo, ...rest }: Props) => {
       {userInfo && (
         <div css={wrapper}>
           <h5 css={name}>{userInfo.name}</h5>
-          <p css={tag}>친구</p>
-          <p css={position}>웹앱 UX 디자이너</p>
+          {userInfo.isFriend && <p css={tag}>친구</p>}
+          <p css={position}>{userInfo.position}</p>
         </div>
       )}
     </div>

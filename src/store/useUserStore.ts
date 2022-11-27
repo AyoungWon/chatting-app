@@ -12,6 +12,7 @@ const useUserStore = create<UserState>((set, get) => ({
     id: "asdasd-asdasd-adsadas-gdfg99",
     name: "원아영",
     profileImage: "https://avatars.githubusercontent.com/u/64050853?v=4",
+    position: "FE developer",
   },
   setUserInfo: (userInfo) => {
     set(() => ({ userInfo }));

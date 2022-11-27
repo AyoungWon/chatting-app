@@ -7,17 +7,24 @@ import { TalkInfo } from "../../../../types/talk";
 interface Props extends HTMLAttributes<HTMLLIElement> {
   data: TalkInfo;
   isLast: boolean;
+  today: Date;
 }
 
-const TalkInfoItem = ({ data, isLast, ...rest }: Props) => {
+const TalkInfoItem = ({ data, isLast, today, ...rest }: Props) => {
   const { selectedTalk } = useTalksStore();
-  const { user, lastMessage } = useMemo(() => data, [data]);
-  const isRead = useMemo(() => !data.isUnread, [data]);
+  const { user, lastMessage, recentDate } = useMemo(() => data, [data]);
+  const isRead = useMemo(() => !data.isUnread, [data.isUnread]);
   const isSelected = useMemo(
     () => selectedTalk?.talkInfo.user.id === data.user.id,
-    [selectedTalk, data]
+    [selectedTalk, data.user.id]
   );
-
+  const timeMark = useMemo(
+    () =>
+      today.toLocaleDateString() === recentDate.toLocaleDateString()
+        ? recentDate.toLocaleTimeString()
+        : recentDate.toLocaleDateString(),
+    [today, recentDate]
+  );
   return (
     <li
       data-user-id={data.user.id}
@@ -33,7 +40,7 @@ const TalkInfoItem = ({ data, isLast, ...rest }: Props) => {
       </div>
       <div css={contentsWrap}>
         <h5 css={username}>{user.name}</h5>
-        <p css={time}>2021.01.30</p>
+        <p css={time}>{timeMark}</p>
         <p css={text}>{lastMessage}</p>
       </div>
     </li>
