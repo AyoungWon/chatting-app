@@ -17,7 +17,7 @@ interface TalksState {
 
 const useTalksStore = create<TalksState>((set, get) => ({
   talkList: [],
-  isNewTalkModalOpen: true,
+  isNewTalkModalOpen: false,
   getTalkList: async () => {
     const talkList = await api.talk.getTalkList();
     set(() => ({ talkList: talkList }));
