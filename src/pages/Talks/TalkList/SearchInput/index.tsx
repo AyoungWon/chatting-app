@@ -2,7 +2,11 @@
 import { css } from "@emotion/react";
 import { HTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLInputElement> {}
+interface Props
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {}
 
 const SearchInput = ({ ...rest }: Props) => {
   return (

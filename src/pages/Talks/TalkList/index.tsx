@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { HTMLAttributes, useEffect, useMemo } from "react";
+import { HTMLAttributes, useEffect, useMemo, useState } from "react";
 import { RoundButton } from "../../../components";
 import useTalksStore from "../../../store/useTalksStore";
+import { TalkInfo } from "../../../types/talk";
 import SearchInput from "./SearchInput";
-import TalkInfo from "./TalkInfoItem";
+import TalkInfoItem from "./TalkInfoItem";
 
-const today = new Date();
+const TODAY = new Date();
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
@@ -16,10 +17,16 @@ const TalkList = ({ ...rest }: Props) => {
     () => list.filter((item) => item.isUnread).length,
     [list]
   );
+  const [filteredList, setFilteredList] = useState<TalkInfo[]>(list);
+  const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
     if (list.length === 0) getTalkList();
   }, []);
+
+  useEffect(() => {
+    setFilteredList(list);
+  }, [list]);
 
   const handleClickTalkItem = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as Element;
@@ -29,6 +36,18 @@ const TalkList = ({ ...rest }: Props) => {
     if (targetTalkInfo) setSelectedTalk(targetTalkInfo);
   };
 
+  const handleChangeSearchInputValue = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+
+    setSearchValue(value);
+
+    if (value === "") return setFilteredList(list);
+    const filteredList = list.filter((item) => item.user.name.includes(value));
+    setFilteredList(filteredList);
+  };
+
   return (
     <div css={[container]} {...rest}>
       <div css={header}>
@@ -36,11 +55,14 @@ const TalkList = ({ ...rest }: Props) => {
         <RoundButton>+ 새로운 메세지</RoundButton>
       </div>
       <div css={talkListWrap}>
-        <SearchInput />
+        <SearchInput
+          value={searchValue}
+          onChange={handleChangeSearchInputValue}
+        />
         <ul css={talkList} onClick={handleClickTalkItem}>
-          {list.map((talkInfo, idx) => (
-            <TalkInfo
-              today={today}
+          {filteredList.map((talkInfo, idx) => (
+            <TalkInfoItem
+              today={TODAY}
               isLast={idx === list.length - 1}
               data={talkInfo}
               key={`talk_list_user_${talkInfo.user.id}`}
