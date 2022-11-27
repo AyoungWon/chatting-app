@@ -2,27 +2,7 @@ import { css, Global } from "@emotion/react";
 
 const color = css`
   :root {
-    --primary: #5e13d8;
-    --primary2: #3c039a;
-    --primary3: #8e59e4;
-    --primary4: #b49bdd;
-    --primary5: #e8e3ef;
-    --primary6: #ddccf6;
-    --primary7: #f3e6f1;
-    --primary8: #a383d7;
-
-    --background: #fcf7ff;
-
-    --backdrop: #14141478;
-    --modal-background: #eff4ff;
-
-    --black: #1a1a1a;
-    --white: #ffffff;
-
-    --gray2: #495057;
-    --gray: #d4d4d4;
-
-    --disabled: #877c9a;
+    --primary: #5a7aff;
     --font-base-color: #343a40;
   }
 `;
