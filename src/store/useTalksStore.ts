@@ -46,7 +46,18 @@ const useTalksStore = create<TalksState>((set, get) => ({
   sendMessage: async (me, message) => {
     const now = new Date();
     //서버로 보내기
-    const selectedTalk = get().selectedTalk;
+    const { selectedTalk, talkList } = get();
+    const selectedTalkItemIndex = talkList.findIndex(
+      (talk) => talk.user.id === selectedTalk?.talkInfo.user.id
+    );
+
+    let nextState: TalkInfo[] = talkList;
+    if (selectedTalkItemIndex >= 0) {
+      nextState = produce(talkList, (draftState) => {
+        draftState[selectedTalkItemIndex].lastMessage = message;
+      });
+    }
+
     if (selectedTalk) {
       set(() => ({
         selectedTalk: {
@@ -56,6 +67,7 @@ const useTalksStore = create<TalksState>((set, get) => ({
             { user: me, time: now, content: message },
           ],
         },
+        talkList: nextState,
       }));
     }
   },
