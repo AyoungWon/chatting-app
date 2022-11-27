@@ -15,9 +15,10 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Pages.Talks />}></Route>
+            <Route path="/talks" element={<Pages.Talks />}></Route>
             {/* <Route path="/product/*" element={<Product />}></Route> */}
             {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
-            {/* <Route path="*" element={<NotFound />}></Route> */}xw
+            {/* <Route path="*" element={<NotFound />}></Route> */}
           </Route>
         </Routes>
       </BrowserRouter>
